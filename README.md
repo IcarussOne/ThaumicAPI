@@ -12,6 +12,8 @@
 - Adds [`AbstractTileEssentiaSmelter`](https://github.com/Invadermonky/ThaumicAPI/blob/master/src/main/java/com/invadermonky/thaumicapi/api/tile/AbstractTileEssentiaSmelter.java) for easy Essentia Smelter creation that includes integration for the new `ISmelterAuxiliary` and `ISmelterVent` interfaces.
 - Adds [`PlayerMovementAbilityHandler`](https://github.com/Invadermonky/ThaumicAPI/blob/master/src/main/java/com/invadermonky/thaumicapi/handlers/PlayerMovementAbilityHandler.java) to allow easier creation of movement speed increasing items such as the Boots of the Traveler.
 - Adds [`ThaumicAPI#registerInfusionEnchantment()`](https://github.com/Invadermonky/ThaumicAPI/blob/master/src/main/java/com/invadermonky/thaumicapi/api/ThaumicAPI.java) helper method for easily registering new Infusion Enchantments.
+- Adds [`ThaumicAPI#addVisDiscountToStack()`](https://github.com/Invadermonky/ThaumicAPI/blob/master/src/main/java/com/invadermonky/t) helper method for adding Vis Discounts to gear without requiring the `IVisDiscountGear` interface.
+- Adds [`ThaumicAPI#addWarpingToStack()`](https://github.com/Invadermonky/ThaumicAPI/blob/master/src/main/java/com/invadermonky/t) helper method to easily add Warping to gear.
 
 ### Thaumcraft Changes:
 - Overhauls Thaumcraft warp events to use [`PlayerWarpEvent`](https://github.com/Invadermonky/ThaumicAPI/blob/master/src/main/java/com/invadermonky/thaumicapi/events/PlayerWarpEvent.java) event handler so they can be modified or cancelled.

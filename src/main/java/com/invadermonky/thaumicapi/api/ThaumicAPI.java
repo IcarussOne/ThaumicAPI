@@ -3,9 +3,11 @@ package com.invadermonky.thaumicapi.api;
 import baubles.api.BaubleType;
 import baubles.api.IBauble;
 import com.invadermonky.thaumicapi.infusion.enchantments.InfusionEnchantmentHelper;
+import com.invadermonky.thaumicapi.utils.helpers.ItemHelper;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
 import thaumcraft.api.items.IRechargable;
 import thaumcraft.common.lib.enchantment.EnumInfusionEnchantment;
@@ -40,5 +42,29 @@ public class ThaumicAPI {
      */
     public static EnumInfusionEnchantment registerInfusionEnchantment(String enchantmentName, int maxLevel, String requiredResearch, String... slotTypes) {
         return InfusionEnchantmentHelper.registerNewInfusionEnchant(enchantmentName, maxLevel, requiredResearch, slotTypes);
+    }
+
+
+    /**
+     * A helper method to add Vis Discount to any ItemStack.
+     *
+     * @param stack The ItemStack object
+     * @param visDiscount The amount of vis discount to add to the item
+     * @return The modified ItemStack
+     */
+    public static ItemStack addVisDiscountToStack(ItemStack stack, int visDiscount) {
+        return ItemHelper.addVisDiscountToStack(stack, visDiscount);
+    }
+
+    /**
+     * A helper method to add Warping to any ItemStack. Gear warping can only be a byte value
+     * (between -128 and 127).
+     *
+     * @param stack The ItemStack object
+     * @param warp The amount of warp to add to the item
+     * @return The modified ItemStack
+     */
+    public static ItemStack addWarpingToStack(ItemStack stack, int warp) {
+        return ItemHelper.addWarpToStack(stack, warp);
     }
 }

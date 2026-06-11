@@ -8,7 +8,9 @@
   "mixins": [
     "block.BlockSmelterAuxMixin" ,
     "block.BlockSmelterVentMixin" ,
+    "events.PlayerEventsMixin" ,
     "events.WarpEventsMixin" ,
+    "items.CasterManagerMixin" ,
     "tile.TileAlembicAccessor" ,
     "tile.TileSmelterMixin" ,
     "tile.TileVoidSiphonMixin"
