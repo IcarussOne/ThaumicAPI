@@ -1,6 +1,7 @@
 # Changelog
 ## [1.1.1]
 ### Changed
+- Clicking on Aspects in JEI in cheat mode now give players an essentia jar filled with that aspect (courtesy of [roidrole](https://github.com/roidrole))
 - Modified `AbstractTileEssentiaSmelter` to allow fuel insertion from bottom and item insertion from sides
 ### Removed
 - Removed vis discount support for mainhand and offhand to fix exploit
