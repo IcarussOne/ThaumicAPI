@@ -2,11 +2,10 @@ package com.invadermonky.thaumicapi.jei;
 
 import mezz.jei.api.ingredients.IIngredientHelper;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import thaumcraft.api.aspects.AspectList;
+import thaumcraft.api.aspects.IEssentiaContainerItem;
 import thaumcraft.api.blocks.BlocksTC;
 import thaumcraft.common.tiles.essentia.TileJarFillable;
 
@@ -67,18 +66,16 @@ public class AspectListIngredientHelper implements IIngredientHelper<AspectList>
     }
 
     @Override
-    public @NotNull ItemStack getCheatItemStack(AspectList ingredient) {
+    public @NotNull ItemStack getCheatItemStack(@NotNull AspectList ingredient) {
         ItemStack jar = new ItemStack(BlocksTC.jarNormal);
-        NBTTagCompound tag = new NBTTagCompound();
-        jar.setTagCompound(tag);
-        NBTTagList list = new NBTTagList();
-        tag.setTag("Aspects", list);
-
-        NBTTagCompound aspectNBT = new NBTTagCompound();
-        aspectNBT.setString("key", ingredient.aspects.keySet().iterator().next().getTag());
-        aspectNBT.setInteger("amount", TileJarFillable.CAPACITY);
-        list.appendTag(aspectNBT);
-
+        if(jar.getItem() instanceof IEssentiaContainerItem) {
+            IEssentiaContainerItem container = (IEssentiaContainerItem) jar.getItem();
+            AspectList aspectList = new AspectList();
+            if(ingredient.size() == 1) {
+                aspectList.add(ingredient.getAspects()[0], TileJarFillable.CAPACITY);
+            }
+            container.setAspects(jar, aspectList);
+        }
         return jar;
     }
 }
