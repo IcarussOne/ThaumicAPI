@@ -323,7 +323,7 @@ public abstract class AbstractItemCaster extends Item implements IArchitect, ICa
                 FocusPackage focusPackage = this.getFocusPackage(focusStack);
                 if(focusPackage != null) {
                     for(IFocusElement element : focusPackage.nodes) {
-                        if(element instanceof IFocusBlockPicker && player.isSneaking() && tile != null) {
+                        if(element instanceof IFocusBlockPicker && player.isSneaking() && tile == null) {
                             if(!world.isRemote) {
                                 RayTraceResult trace = PlayerHelper.rayTrace(player, 0);
                                 ItemStack toStore = state.getBlock().getPickBlock(state, trace, world, pos, player);

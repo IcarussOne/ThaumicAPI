@@ -1,4 +1,10 @@
 # Changelog
+## [1.1.2]
+### Fixed
+- Fixed broken `AbstractItemCaster` logic when picking blocks for the exchange focus
+
+---
+
 ## [1.1.1]
 ### Changed
 - Clicking on Aspects in JEI in cheat mode now give players an essentia jar filled with that aspect (courtesy of [roidrole](https://github.com/roidrole))
