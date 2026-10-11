@@ -32,6 +32,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Optional;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.jetbrains.annotations.NotNull;
@@ -61,6 +62,68 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+/**
+ * A pre-built implementation of Thaumcraft's Caster's Gauntlet to make it easier to create custom gauntlets
+ * with variable stats and effects.
+ *
+ * <p>
+ * The adjustable stats include:
+ * <li>Chunk Drain Radius - allowing gauntlets to pull vis from larger areas</li>
+ * <li>Vis Consumption Modifier - adjusting the amount of vis consumed when a spell is cast</li>
+ * <li>Augment Slots - built-in compatibility for Thaumic Augmentations gauntlet augments</li>
+ *
+ * <p>
+ * This class also includes a color handler for the gauntlet when it has a focus equipped. To use this method,
+ * call {@link AbstractItemCaster#initClient(AbstractItemCaster)} during the {@link FMLInitializationEvent} on
+ * the client side, passing your gauntlet as a parameter.
+ *
+ * <p>
+ * If using the provided methods, the generic item model json is a variation of the following:
+ * <blockquote><pre>
+ * {@code
+ * {
+ *   "parent": "item/generated",
+ *   "overrides": [
+ *     {
+ *       "predicate": {"thaumicapi:focus": 0},
+ *       "model": "examplemod:item/caster_new_model"
+ *     },
+ *     {
+ *       "predicate": {"thaumicapi:focus": 1},
+ *       "model": "examplemod:item/caster_new_focus_model"
+ *     }
+ *   ]
+ * }
+ * }
+ * </pre></blockquote>
+ *
+ * <p>
+ * The no focus item model json:
+ * <blockquote><pre>
+ * {@code
+ * {
+ *   "parent": "thaumcraft:item/caster_gauntlet",
+ *   "textures": {
+ *     "skin": "examplemod:models/caster_new_inactive"
+ *   }
+ * }
+ * }
+ * </pre></blockquote>
+ *
+ * <p>
+ * The gauntlet model with a focus attached:
+ * <blockquote><pre>
+ * {@code
+ * {
+ *   "parent": "thaumcraft:item/caster_gauntlet_focus",
+ *   "textures": {
+ *     "skin": "examplemod:models/caster_new_active"
+ *   }
+ * }
+ * }
+ * </pre></blockquote>
+ *
+ */
 public abstract class AbstractItemCaster extends Item implements IArchitect, ICaster {
     public static final String TAG_FOCUS = "storedFocus";
     public static final String TAG_BLOCK = "pickedBlock";
@@ -70,52 +133,6 @@ public abstract class AbstractItemCaster extends Item implements IArchitect, ICa
 
     /**
      * A basic builder for the gauntlet item. This constructor automatically adds the focus property override.
-     * <p>
-     * The generic item model json:
-     * <blockquote><pre>
-     * {@code
-     * {
-     *   "parent": "item/generated",
-     *   "overrides": [
-     *     {
-     *       "predicate": {"thaumicapi:focus": 0},
-     *       "model": "examplemod:item/caster_new_model"
-     *     },
-     *     {
-     *       "predicate": {"thaumicapi:focus": 1},
-     *       "model": "examplemod:item/caster_new_focus_model"
-     *     }
-     *   ]
-     * }
-     * }
-     * </pre></blockquote>
-     *
-     * <p>
-     * The no focus item model json:
-     * <blockquote><pre>
-     * {@code
-     * {
-     *   "parent": "thaumcraft:item/caster_gauntlet",
-     *   "textures": {
-     *     "skin": "examplemod:models/caster_new_inactive"
-     *   }
-     * }
-     * }
-     * </pre></blockquote>
-     *
-     * <p>
-     * The gauntlet model with a focus attached:
-     * <blockquote><pre>
-     * {@code
-     * {
-     *   "parent": "thaumcraft:item/caster_gauntlet_focus",
-     *   "textures": {
-     *     "skin": "examplemod:models/caster_new_active"
-     *   }
-     * }
-     * }
-     * </pre></blockquote>
-     *
      */
     public AbstractItemCaster(int augmentSlots) {
         this.setMaxStackSize(1);
