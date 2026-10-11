@@ -1,4 +1,23 @@
 # Changelog
+## [1.1.5]
+### Fixed
+- Fixed `AbstractTileEssentiaSmelter` incorrectly calculating actual flux when decreased by an Auxiliary Venting Port
+- Fixed missing heartbeat sound effect when warp events fire
+
+---
+
+## [1.1.4]
+### Fixed
+- Fixed ThaumicAPI breaking Multiblocked's AspectList JEI display
+
+---
+
+## [1.1.3]
+### Fixed
+- Fixed registry crash when loaded with Multiblocked
+
+---
+
 ## [1.1.2]
 ### Fixed
 - Fixed broken `AbstractItemCaster` logic when picking blocks for the exchange focus
