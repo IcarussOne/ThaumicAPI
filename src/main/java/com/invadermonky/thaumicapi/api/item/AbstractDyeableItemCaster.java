@@ -30,6 +30,10 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public abstract class AbstractDyeableItemCaster extends AbstractItemCaster implements IDyeableGear {
+    /**
+     * A helper method used to register gauntlet focus color tinting. Simply call this method
+     * when you register the item model.
+     */
     @SideOnly(Side.CLIENT)
     public static void initClient(AbstractItemCaster casterItem) {
         ItemColors itemColors = Minecraft.getMinecraft().getItemColors();
@@ -45,6 +49,9 @@ public abstract class AbstractDyeableItemCaster extends AbstractItemCaster imple
         itemColors.registerItemColorHandler(itemCasterColourHandler, casterItem);
     }
 
+    /**
+     * Gets the current item dye color.
+     */
     @Override
     public int getDyedColor(ItemStack stack) {
         if (!stack.hasTagCompound()) {
@@ -60,6 +67,9 @@ public abstract class AbstractDyeableItemCaster extends AbstractItemCaster imple
         }
     }
 
+    /**
+     * Sets the current item dye color.
+     */
     @Override
     public void setDyedColor(ItemStack stack, int color) {
         if (!stack.hasTagCompound()) {
@@ -70,6 +80,9 @@ public abstract class AbstractDyeableItemCaster extends AbstractItemCaster imple
         stack.getTagCompound().setInteger("color", color);
     }
 
+    /**
+     * Gets the default item dye color when undyed.
+     */
     @Override
     public int getDefaultDyedColorForMeta(int meta) {
         return 0;
