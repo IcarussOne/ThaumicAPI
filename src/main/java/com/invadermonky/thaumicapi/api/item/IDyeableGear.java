@@ -7,5 +7,5 @@ public interface IDyeableGear {
 
     void setDyedColor(ItemStack stack, int color);
 
-    int getDefaultDyedColorForMeta(int meta);
+    ItemStack getDefaultDyedColor(ItemStack stack);
 }

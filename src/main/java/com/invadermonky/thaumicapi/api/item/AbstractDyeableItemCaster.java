@@ -62,7 +62,7 @@ public abstract class AbstractDyeableItemCaster extends AbstractItemCaster imple
         if (stack.getTagCompound().hasKey("color", Constants.NBT.TAG_INT))
             return stack.getTagCompound().getInteger("color");
         else {
-            stack.getTagCompound().setInteger("color", getDefaultDyedColorForMeta(stack.getMetadata()));
+            stack.getTagCompound().setInteger("color", getDefaultDyedColor(stack).getMetadata());
             return stack.getTagCompound().getInteger("color");
         }
     }
@@ -81,11 +81,11 @@ public abstract class AbstractDyeableItemCaster extends AbstractItemCaster imple
     }
 
     /**
-     * Gets the default item dye color when undyed.
+     * Gets the default undyed item color from ItemStack.
      */
     @Override
-    public int getDefaultDyedColorForMeta(int meta) {
-        return 0;
+    public ItemStack getDefaultDyedColor(ItemStack stack) {
+        return stack;
     }
 
     @Override
@@ -94,8 +94,8 @@ public abstract class AbstractDyeableItemCaster extends AbstractItemCaster imple
         IBlockState state = world.getBlockState(pos);
 
         // Right-clicking a filled cauldron with the dyed item will wash it out
-        if (state.getBlock() == Blocks.CAULDRON && state.getValue(BlockCauldron.LEVEL) > 0 && getDyedColor(stack) != getDefaultDyedColorForMeta(stack.getMetadata())) {
-            setDyedColor(stack, getDefaultDyedColorForMeta(stack.getMetadata()));
+        if (state.getBlock() == Blocks.CAULDRON && state.getValue(BlockCauldron.LEVEL) > 0 && getDyedColor(stack) != getDefaultDyedColor(stack).getMetadata()) {
+            setDyedColor(stack, getDefaultDyedColor(stack).getMetadata());
             world.setBlockState(pos, state.withProperty(BlockCauldron.LEVEL, state.getValue(BlockCauldron.LEVEL) - 1));
             world.playSound(null, pos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 0.5F, 1.0F);
             return EnumActionResult.SUCCESS;
@@ -110,7 +110,7 @@ public abstract class AbstractDyeableItemCaster extends AbstractItemCaster imple
         int color = getDyedColor(stack);
 
         // If it's dyed, show it on the tooltip
-        if (color != getDefaultDyedColorForMeta(stack.getMetadata())) {
+        if (color != getDefaultDyedColor(stack).getMetadata()) {
             if (tooltip.isAdvanced())
                 list.add(new TextComponentTranslation("item.color", TextFormatting.GRAY + String.format("#%06X", color)).getFormattedText());
             else {
