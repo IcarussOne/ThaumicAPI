@@ -5,12 +5,15 @@ import com.invadermonky.thaumicapi.warpevents.WarpEventRegistry;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.SoundCategory;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import thaumcraft.common.config.ModConfig;
+import thaumcraft.common.lib.SoundsTC;
 
 public class MessageWarpEvent implements IMessage {
     public IWarpEvent warpEvent;
@@ -46,6 +49,9 @@ public class MessageWarpEvent implements IMessage {
                     EntityPlayer player = Minecraft.getMinecraft().player;
                     message.warpEvent.playClientEventSound(player, message.playerWarp);
                     message.warpEvent.performWarpEvent(player, message.playerWarp);
+                    if(!ModConfig.CONFIG_GRAPHICS.nostress) {
+                        player.world.playSound(player.posX, player.posY, player.posZ, SoundsTC.heartbeat, SoundCategory.AMBIENT, 1.0f, 1.0f, false);
+                    }
                 });
             }
             return null;
