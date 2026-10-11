@@ -360,14 +360,16 @@ public abstract class AbstractTileEssentiaSmelter extends TileEntity implements 
 
     public int getActualPollution(int flux) {
         EnumFacing front = this.getMachineFront();
-        for(EnumFacing facing : EnumFacing.HORIZONTALS) {
-            if(facing == front) continue;
-            BlockPos checkPos = this.pos.offset(facing);
-            IBlockState checkState = this.world.getBlockState(checkPos);
-            ISmelterVent vent = SmelterHelper.getSmelterVent(this.world, checkPos, checkState);
-            if(vent != null && vent.canVentSmelter(this.world, checkPos, checkState, this)) {
-                if(this.world.rand.nextFloat() < vent.getFluxFilterChance(this.world, checkPos, checkState, this)) {
-                    flux--;
+        for(int i = 0; i < flux; i++) {
+            for (EnumFacing facing : EnumFacing.HORIZONTALS) {
+                if (facing == front) continue;
+                BlockPos checkPos = this.pos.offset(facing);
+                IBlockState checkState = this.world.getBlockState(checkPos);
+                ISmelterVent vent = SmelterHelper.getSmelterVent(this.world, checkPos, checkState);
+                if (vent != null && vent.canVentSmelter(this.world, checkPos, checkState, this)) {
+                    if (this.world.rand.nextFloat() < vent.getFluxFilterChance(this.world, checkPos, checkState, this)) {
+                        flux--;
+                    }
                 }
             }
         }
